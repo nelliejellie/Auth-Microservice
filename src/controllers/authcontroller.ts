@@ -1,11 +1,11 @@
-import { getUserFromGraph } from "../services/graphServices";
+import { authenticateWithMicrosoftGraph } from "../services/graphServices";
 import AuditLog from "../models/AuditLog";
 
 export async function authenticateUser(req: any, res: any) {
   const ipAddress = req.ip || req.connection.remoteAddress;
   const userAgent = req.headers["user-agent"] || "unknown";
   const source = "authService";
-  const { email } = req.body;
+  const { email, password } = req.body;
 
   const createAuditLog = async (status: string) => {
     try {
@@ -18,17 +18,15 @@ export async function authenticateUser(req: any, res: any) {
       });
     } catch (error: any) {
       console.error("Error creating audit log:", error);
-      // Handle error if necessary, e.g., log it or send a notification
     }
   };
 
-  if (!email || !email.endsWith("@sanlamallianz.com.ng")) {
-    await createAuditLog("failure");
-    return res.status(400).json({ message: "Invalid email or domain" });
+  if (!email || !password || !email.endsWith("@sanlamallianz.com.ng")) {
+    return res.status(400).json({ message: "Invalid email or password" });
   }
 
   try {
-    const user = await getUserFromGraph(email);
+    const user = await authenticateWithMicrosoftGraph(email, password);
 
     if (user) {
       await createAuditLog("success");
