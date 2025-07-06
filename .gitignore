@@ -1,0 +1,39 @@
+# Node dependencies
+/node_modules
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Database-related files (optional)
+*.sql
+*.sqlite
+
+# Editor/IDE configs
+.vscode/
+.idea/
+
+# Output folders
+dist/
+build/
+
+# Sequelize config (if applicable)
+config/config.json
+
+# Optional: Coverage reports from testing
+coverage/
+
+# Optional: Debug & temp files
+*.tgz
+*.bak
+*.tmp
