@@ -1,6 +1,6 @@
 // models/AuditLog.js
 import { DataTypes } from "sequelize";
-import sequelize from "../db/config.js"; // Adjust the path as necessary
+import sequelize from "../db/config"; // Adjust the path as necessary
 
 const AuditLog = sequelize.define(
   "AuditLog",
